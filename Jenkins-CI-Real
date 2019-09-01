@@ -88,6 +88,8 @@ pipeline {
                         sh "sed -i 's/${CurrentVersion}/${nextVersion}/g' dev.json"
                         sh "sed -i 's/ipaddr/${target}/g' dev.json"
                         sh "git add dev.json"
+                        sh "git config --global user.email 'gadigamburg@gmail.com'"
+                        sh "git config --global user.name 'Gadi'"
                         sh "git commit -m 'CI approved ${nextVersion}'"
                         sh "git push https://${GIT_USER}:${GIT_PASS}@github.com/gadigamburg/Release"
                         sh 'docker image prune -a -f --filter "until=1h"'
