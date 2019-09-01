@@ -31,6 +31,7 @@ pipeline {
                 nextVersion = "${a}.${b}.${c+1}"
                 BuildVersion = "${CurrentVersion}_${commitIDshort}"
                 echo("BuildVersion Is: ${BuildVersion}")
+                    echo "123"
                 }
                 }
             }

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2cec9e4b-fede-42d7-8cfc-b2b4b52fef3f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jenkins-CI-Real" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkins-CI-Real" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567355242366</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="CI-CD_Project_INIT">
+      <created>1567355846388</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1567355846388</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
