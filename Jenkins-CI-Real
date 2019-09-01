@@ -10,7 +10,7 @@ pipeline {
                     target= input(
                             id: 'userInput', message: 'Enter target IP',
                             parameters: [
-                                string(defaultValue: '0.0.0.0',
+                                string(defaultValue: '34.220.17.148',
                                        description: 'ip address',
                                        name: 'IP')])
                 dir('Release'){
@@ -30,6 +30,7 @@ pipeline {
                 commitIDshort = commitIDshort.trim()
                 nextVersion = "${a}.${b}.${c+1}"
                 BuildVersion = "${CurrentVersion}_${commitIDshort}"
+                echo("BuildVersion Is: ${BuildVersion}")
                 }
                 }
             }
@@ -38,7 +39,7 @@ pipeline {
             steps {
                 script{
                     dir ('development') {
-                    myImage = docker.build("johnmops/python-app:${nextVersion}", "./app")
+                    myImage = docker.build("gadi/python-app:${nextVersion}", "./app")
                     myImage.withRun('-p 80:80 --name python') {c ->
                       try{
                           sh 'sleep 1'
@@ -55,7 +56,7 @@ pipeline {
         stage ('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('', 'b76ccfeb-b32d-41c0-b116-c85c72168576'){
+                    docker.withRegistry('', 'docker_hub'){
                         myImage.push()
                 }
                 }
@@ -65,11 +66,11 @@ pipeline {
             steps {
                 script {
                     dir ('development'){
-                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248', 
+                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248',
                         passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                         sh "git branch ${nextVersion}"
                         sh "git checkout ${nextVersion}"
-                        sh 'git push https://${GIT_USER}:${GIT_PASS}@github.com/JohnMops/CI-CD-Project'
+                        sh 'git push https://${GIT_USER}:${GIT_PASS}@github.com/gadigamburg/CI-CD-Project'
                     }
                     }
                     
@@ -80,20 +81,20 @@ pipeline {
     post {
         success {
              dir('Release') {
-                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248', 
+                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248',
                         passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                         sh "git checkout Dev"
                         sh "sed -i 's/${CurrentVersion}/${nextVersion}/g' dev.json"
                         sh "sed -i 's/ipaddr/${target}/g' dev.json"
                         sh "git add dev.json"
                         sh "git commit -m 'CI approved ${nextVersion}'"
-                        sh "git push https://${GIT_USER}:${GIT_PASS}@github.com/JohnMops/Release"
+                        sh "git push https://${GIT_USER}:${GIT_PASS}@github.com/gadigamburg/Release"
                         sh 'docker image prune -a -f --filter "until=1h"'
         }
         }
         }
         failure {
-            emailext body: '${BUILD_ID} failed', subject: 'Build Failed', to: 'your email'
+            //emailext body: '${BUILD_ID} failed', subject: 'Build Failed', to: 'your email'
         }
         }
     }
