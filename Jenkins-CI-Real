@@ -67,7 +67,7 @@ pipeline {
             steps {
                 script {
                     dir ('development'){
-                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248',
+                        withCredentials([usernamePassword(credentialsId: 'GadiGit',
                         passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                         sh "git branch ${nextVersion}"
                         sh "git checkout ${nextVersion}"
@@ -82,7 +82,7 @@ pipeline {
     post {
         success {
              dir('Release') {
-                        withCredentials([usernamePassword(credentialsId: 'b6218c54-9fe9-4052-8da9-58322b94e248',
+                        withCredentials([usernamePassword(credentialsId: 'GadiGit',
                         passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                         sh "git checkout Dev"
                         sh "sed -i 's/${CurrentVersion}/${nextVersion}/g' dev.json"
