@@ -87,9 +87,9 @@ pipeline {
                         passwordVariable: 'GIT_PASS', usernameVariable: 'GIT_USER')]) {
                         sh "git checkout Dev"
                         sh "sed -i 's/${CurrentVersion}/${nextVersion}/g' dev.json"
-                            sh "cat dev.json"
+                        sh "cat dev.json"
                         sh "sed -i 's/ipaddr/${target}/g' dev.json"
-                            sh "cat dev.json"
+                        sh "cat dev.json"
                         sh "git add dev.json"
                         sh "git config --global user.email 'gadigamburg@gmail.com'"
                         sh "git config --global user.name 'Gadi'"
