@@ -72,6 +72,7 @@ pipeline {
                         sh "git branch ${nextVersion}"
                         sh "git checkout ${nextVersion}"
                         sh 'git push https://${GIT_USER}:${GIT_PASS}@github.com/gadigamburg/CI-CD-Project'
+                        echo("Push Branch: ${nextVersion} Success")
                     }
                     }
                     
