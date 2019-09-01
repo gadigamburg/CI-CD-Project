@@ -93,9 +93,9 @@ pipeline {
         }
         }
         }
-        failure {
+        //failure {
             //emailext body: '${BUILD_ID} failed', subject: 'Build Failed', to: 'your email'
-        }
+        //}
         }
     }
     
