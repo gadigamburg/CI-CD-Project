@@ -40,7 +40,7 @@ pipeline {
                 script{
                     dir ('development') {
                         sh "ls"
-                    myImage = docker.build("gadi/python-app:${nextVersion}", "./app")
+                    myImage = docker.build("gadigamburg/python-app:${nextVersion}", "./app")
                     myImage.withRun('-p 80:80 --name python') {c ->
                       try{
                           sh 'sleep 1'
